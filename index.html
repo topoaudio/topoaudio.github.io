@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link href="styles.css" rel="stylesheet" />
+    <link href="fontawesome.all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <script defer src="fontawesome.all.min.js"></script>
+
+    <link rel="icon" type="image/png" href="webpage_assets/toponets_icon.png" />
+    <title>TopoAudio</title>
+    <meta property="og:title" content="Topographic constraints shape brain-like component structure in auditory models">
+    <meta property="og:description" content="TopoAudio: Topographic auditory neural network models whose internal representations align with component structure in human auditory cortex.">
+
+    <style>
+        body {
+            font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 1100px;
+        }
+
+        /* Placeholder figure styling */
+        .fig-placeholder {
+            background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+            border: 2px dashed #aaa;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            min-height: 300px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .fig-placeholder .fig-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        .fig-placeholder .fig-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        .fig-placeholder .fig-desc {
+            font-size: 13px;
+            color: #777;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .finding-box {
+            background: #f7f7f7;
+            border-left: 4px solid #c0392b;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+        .finding-box strong {
+            color: #c0392b;
+        }
+
+        .highlight-stat {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #c0392b;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 8px;
+        }
+
+        /* Affiliations */
+        .affil {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Caption style */
+        .fig-caption {
+            font-size: 14px;
+            color: #555;
+            max-width: 900px;
+            margin: 10px auto 0 auto;
+            text-align: left;
+            padding: 0 10px;
+        }
+
+        /* Summary table */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        .summary-table th {
+            background: #333;
+            color: #fff;
+            padding: 10px 16px;
+            text-align: center;
+        }
+        .summary-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+        .summary-table tr:hover {
+            background: #f5f5f5;
+        }
+        .check-yes { color: #27ae60; font-weight: bold; }
+        .check-no  { color: #e74c3c; font-weight: bold; }
+
+        /* bibtex block */
+        .bibtex-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            font-family: monospace;
+            font-size: 14px;
+            max-width: 900px;
+            margin: 0 auto;
+            white-space: pre-wrap;
+        }
+
+        section {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <center>
+        <span class="near-black" style="font-size:32px;font-weight:bold;">Topographic constraints shape brain-like</span>
+        <br>
+        <span class="near-black" style="font-size:32px;font-weight:bold;">component structure in auditory models</span>
+        <br><br>
+        <span class="near-black" style="font-size:20px;background:#fff3cd;padding:4px 14px;border-radius:20px;border:1px solid #ffc107;">
+            CCN 2026 &mdash; 9th Annual Conference on Cognitive Computational Neuroscience
+        </span>
+        <br><br>
+
+        <!-- Authors -->
+        <table align="center" width="960px">
+            <tbody>
+                <tr>
+                    <td align="center" width="240px">
+                        <center>
+                            <span style="font-size:20px"><b>Haider Al-Tahan</b></span><sup style="font-size:13px;">1,2</sup>
+                        </center>
+                    </td>
+                    <td align="center" width="200px">
+                        <center>
+                            <span style="font-size:20px"><a href="https://mayukhdeb.github.io/"><b>Mayukh Deb</b></a></span><sup style="font-size:13px;">1,2</sup>
+                        </center>
+                    </td>
+                    <td align="center" width="220px">
+                        <center>
+                            <span style="font-size:20px"><a href="https://jenellefeather.github.io/"><b>Jenelle Feather</b></a></span><sup style="font-size:13px;">3,4,5</sup>
+                        </center>
+                    </td>
+                    <td align="center" width="300px">
+                        <center>
+                            <span style="font-size:20px"><a href="https://www.murtylab.com"><b>N. Apurva Ratan Murty</b></a></span><sup style="font-size:13px;">1,2</sup>
+                        </center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <p class="affil">
+            <sup>1</sup> Cognition and Brain Science, School of Psychology, Georgia Tech &nbsp;&nbsp;
+            <sup>2</sup> Computational Cognition, Georgia Tech
+            <br>
+            <sup>3</sup> Center for Computational Neuroscience, Flatiron Institute, Simons Foundation &nbsp;&nbsp;
+            <sup>4</sup> Psychology Department, Carnegie Mellon University &nbsp;&nbsp;
+            <sup>5</sup> Neuroscience Institute, Carnegie Mellon University
+        </p>
+        <br>
+
+        <!-- Institutions -->
+        <div style="display:inline-flex;align-items:center;gap:30px;margin-bottom:16px;">
+            <img style="height:45px" src="./webpage_assets/gatech.png" alt="Georgia Tech">
+            <!-- TODO: add CMU and Flatiron logos if available in webpage_assets/ -->
+        </div>
+
+        <br>
+        <!-- Links bar -->
+        <table width="800" border="0" align="center" style="margin-bottom: 20px;margin-top: 10px;font-weight: bold;font-size: 16px;">
+            <tbody>
+            <tr>
+            <td align="center">
+            <span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="display:inline-flex;align-items:center;vertical-align:middle;height:26px; font-size:13px; padding: 0 10px; margin:3px;">
+            <a style="color:inherit;text-decoration:none;font-size:13px;display:flex;align-items:center;" href="https://openreview.net/forum?id=sELPprz4PR" target="_blank">
+            <img src="webpage_assets/openreview_logo.png" style="height:15px; padding-right:4px;" aria-hidden="true">
+            OpenReview
+            </a>
+            </span>
+            <span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="display:inline-flex;align-items:center;vertical-align:middle;height:26px; font-size:13px; padding: 0 10px; margin:3px;">
+            <a style="color:inherit;text-decoration:none;font-size:13px;display:flex;align-items:center;" href="https://github.com/murtylab/topoloss" target="_blank">
+            <i style="padding-right:4px;font-size:15px" class="fab fa-github" aria-hidden="true"></i>
+            Code
+            </a>
+            </span>
+            <span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="display:inline-flex;align-items:center;vertical-align:middle;height:26px; font-size:13px; padding: 0 10px; margin:3px;">
+            <a style="color:inherit;text-decoration:none;font-size:13px;display:flex;align-items:center;" href="#bibtex" target="_self">
+            <i style="padding-right:4px;font-size:15px" class="fa fa-quote-left" aria-hidden="true"></i>
+            BibTeX
+            </a>
+            </span>
+            </td>
+            </tr>
+            </tbody>
+        </table>
+    </center>
+
+    <hr>
+
+    <!-- ========== ABSTRACT ========== -->
+    <section>
+        <center><h1>Abstract</h1></center>
+        <table align="center" width="900px">
+            <tbody><tr><td>
+                If topography is a fundamental feature of the brain, it should influence both how neurons are arranged in space (i.e. explain brain maps) and how information is structured within the neural population. The human auditory cortex provides a strong, but previously underused test for the latter idea. Neural responses measured with both fMRI and ECoG can be decomposed into interpretable components corresponding to sound categories such as speech, music, and song, offering a view of how sound information is partitioned in the brain. Here we ask whether introducing topographic constraints into the training of audio neural network models shapes their internal representations to better match the component structure observed in the brain. We introduce <strong>TopoAudio</strong>, a new class of topographic auditory models that incorporate wiring-length constraints and encourage nearby units on a two-dimensional cortical sheet to develop similar response tuning. Despite these additional constraints, TopoAudio achieves comparable performance on standard speech and environmental sound classification tasks and matches non-topographic models in predicting human fMRI responses. Crucially, topographic models develop more compact internal representations, and their inferred components align more closely with those derived from human ECoG recordings. These results provide initial evidence that topography offers a general mechanism for producing biologically aligned internal representations in artificial neural networks.
+            </td></tr></tbody>
+        </table>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== TEASER / OVERVIEW FIGURE ========== -->
+    <section>
+        <center>
+            <h1>Overview: TopoAudio</h1>
+            <div style="max-width:900px; width:100%;">
+                <!-- TODO: Replace with Figure 1 from the paper (teaser figure showing pipeline:
+                     cochleagram → Audio Encoder → baseline vs TopoAudio internal representations
+                     vs. Auditory Cortex component structure comparison) -->
+                <div class="fig-placeholder" style="min-height:380px;">
+                    <div class="fig-icon">🎵🧠</div>
+                    <div class="fig-label">Figure 1 — TopoAudio Pipeline Overview</div>
+                    <div class="fig-desc">
+                        <strong>Replace with paper Figure 1.</strong><br>
+                        Shows: raw sound waveform → cochleagram → Audio Encoder.
+                        Baseline model (task loss only) vs. TopoAudio (task loss + topographic loss).
+                        TopoAudio produces smoothly varying internal representations on a 2D cortical sheet,
+                        compared against topographically organized human Auditory Cortex.
+                    </div>
+                </div>
+            </div>
+            <p class="fig-caption">
+                <strong>Fig. 1. TopoAudio: Topographic auditory models.</strong> Raw sound waveforms are transformed into cochleagrams and
+                passed through the CochResNet50 backbone. The baseline model is trained with only a task loss; TopoAudio adds a
+                spatial smoothness constraint (TopoLoss). We compare the component structure of model internal representations
+                against those inferred from human auditory cortex.
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== KEY FINDINGS ========== -->
+    <section>
+        <center><h1>Key Findings</h1></center>
+        <table align="center" width="900px"><tbody><tr><td>
+            <div class="finding-box">
+                <strong>Finding 1: Task performance is preserved.</strong>
+                TopoAudio achieves classification accuracy on ESC-50, NSynth, and Speech Commands that is
+                comparable to non-topographic baselines, even as topographic smoothness increases substantially.
+            </div>
+            <div class="finding-box">
+                <strong>Finding 2: Brain predictivity is maintained.</strong>
+                Both baseline and TopoAudio models predict human auditory fMRI responses (NH2015, B2021) with
+                equally high accuracy across all cortical layers and regions of interest.
+            </div>
+            <div class="finding-box">
+                <strong>Finding 3: More compact component structure.</strong>
+                Topographic constraints reduce the number of representational components needed to explain 80%
+                of response variance (e.g., 26 components for baseline vs. 20 for &tau;&nbsp;=&nbsp;25).
+            </div>
+            <div class="finding-box">
+                <strong>Finding 4: Better alignment with human ECoG.</strong>
+                Components extracted from TopoAudio show significantly stronger correlation with the 15 components
+                derived from human ECoG recordings, particularly for speech, music, and song.
+            </div>
+        </td></tr></tbody></table>
+
+        <!-- Quick-glance stat cards -->
+        <div style="display:flex;justify-content:center;flex-wrap:wrap;max-width:900px;margin:20px auto 0 auto;">
+            <div class="stat-card">
+                <span class="highlight-stat">~0%</span>
+                drop in task accuracy<br>with topography
+            </div>
+            <div class="stat-card">
+                <span class="highlight-stat">26 → 20</span>
+                ICA components<br>needed at 80% variance
+            </div>
+            <div class="stat-card">
+                <span class="highlight-stat">0.32 → 0.46</span>
+                ECoG alignment (R)<br>baseline vs. TopoAudio
+            </div>
+            <div class="stat-card">
+                <span class="highlight-stat">&tau; = 5</span>
+                optimal topographic<br>strength (sweet spot)
+            </div>
+        </div>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== MODEL PERFORMANCE TABLE ========== -->
+    <section>
+        <center>
+            <h1>TopoAudio Preserves Task Performance</h1>
+            <table class="summary-table" style="max-width:800px;">
+                <thead>
+                    <tr>
+                        <th>Topography (&tau;)</th>
+                        <th>ESC-50</th>
+                        <th>NSynth</th>
+                        <th>Speech Commands</th>
+                        <th>Smoothness</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="font-weight:bold;">
+                        <td>Baseline</td><td>81.69</td><td>98.29</td><td>86.68</td><td>−0.002</td>
+                    </tr>
+                    <tr><td>&tau;&nbsp;=&nbsp;5</td><td>81.46</td><td>98.50</td><td>86.88</td><td>0.16</td></tr>
+                    <tr><td>&tau;&nbsp;=&nbsp;25</td><td>80.62</td><td>98.39</td><td>87.89</td><td>0.22</td></tr>
+                    <tr><td>&tau;&nbsp;=&nbsp;50</td><td>80.84</td><td>98.36</td><td>87.57</td><td>0.50</td></tr>
+                    <tr><td>&tau;&nbsp;=&nbsp;100</td><td>80.32</td><td>98.72</td><td>86.85</td><td>0.62</td></tr>
+                    <tr style="background:#fff9e6;">
+                        <td><em>Topographic Avg.</em></td><td><em>80.79</em></td><td><em>98.49</em></td><td><em>87.33</em></td><td><em>0.38</em></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="fig-caption" style="text-align:center;">
+                Introducing topographic constraints (&tau;) substantially increases representational smoothness with only modest
+                changes in classification performance across all three benchmarks.
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== BRAIN PREDICTIVITY ========== -->
+    <section>
+        <center>
+            <h1>Topographic Models Maintain Brain Predictivity</h1>
+            <div style="max-width:900px; width:100%;">
+                <!-- TODO: Replace with Figure 2 from the paper:
+                     A) Brain maps (cortical surface, fsaverage) showing peak voxel-wise predictions
+                        for baseline CochDNN vs. TopoNet-CochDNN across model hierarchy layers
+                     B) Line plot: ANN prediction accuracy (adjusted R²) vs. model depth for both datasets
+                        (NH2015 and B2021), showing baseline and all tau variants overlapping
+                     C) Bar plot: peak encoding performance across all models -->
+                <div class="fig-placeholder" style="min-height:350px;">
+                    <div class="fig-icon">🧠📊</div>
+                    <div class="fig-label">Figure 2 — Brain Predictivity (fMRI)</div>
+                    <div class="fig-desc">
+                        <strong>Replace with paper Figure 2.</strong><br>
+                        A) Cortical surface maps (left/right hemisphere) showing adjusted R² for baseline and
+                        TopoAudio models across model hierarchy layers (NH2015 and B2021 datasets).<br>
+                        B) Line plots of prediction accuracy vs. layer depth — note baseline and TopoAudio curves
+                        are virtually superimposed, peaking at Layer 3.<br>
+                        C) Bar plot of peak encoding performance per model variant (random, baseline, τ=5,25,50,100).
+                    </div>
+                </div>
+            </div>
+            <p class="fig-caption">
+                <strong>Fig. 2. Topographic auditory models maintain overall voxel-wise brain predictivity.</strong>
+                Both baseline and TopoAudio models achieve comparable levels of predictivity across all fMRI datasets
+                and cortical regions of interest (early tonotopic, pitch-selective, higher-order music/speech areas).
+                The five TopoAudio curves are virtually superimposed with the baseline.
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== COMPONENT STRUCTURE ========== -->
+    <section>
+        <center>
+            <h1>Topographic Constraints Produce More Compact &amp; Brain-Aligned Component Structure</h1>
+            <div style="max-width:900px; width:100%;">
+                <!-- TODO: Replace with Figure 3 from the paper:
+                     A) Schematic: human ECoG + model activations → ICA decomposition into component
+                        weights + responses → correlation-based greedy matching
+                     B) Cumulative explained variance vs. number of ICA components for human ECoG,
+                        baseline, and all tau variants. Vertical dashed lines at 80% threshold show
+                        topographic models need fewer components (red dashed) than baseline (black dashed)
+                     C) Correlation time courses (0–3 s) between matched model and ECoG components;
+                        bar chart on right showing mean similarity: baseline ~0.32, TopoAudio ~0.46 -->
+                <div class="fig-placeholder" style="min-height:400px;">
+                    <div class="fig-icon">📉🔗</div>
+                    <div class="fig-label">Figure 3 — Component Analysis & ECoG Alignment</div>
+                    <div class="fig-desc">
+                        <strong>Replace with paper Figure 3.</strong><br>
+                        A) Schematic of the ICA decomposition + greedy matching pipeline.<br>
+                        B) Cumulative explained variance curves: TopoAudio reaches 80% with fewer components
+                        than baseline, approaching human ECoG dimensionality.<br>
+                        C) Correlation time courses between matched model and ECoG components (0–3 s);
+                        summary bar chart showing mean similarity ~0.32 (baseline) vs. ~0.46 (best TopoAudio).
+                    </div>
+                </div>
+            </div>
+            <p class="fig-caption">
+                <strong>Fig. 3.</strong>
+                <strong>Left:</strong> Schematic of the component alignment procedure.
+                <strong>Middle:</strong> Topographic ANNs require fewer components to explain 80% of response variance.
+                <strong>Right:</strong> Correlation time courses reveal stronger alignment between topographic models
+                and human ECoG across the 0–3&nbsp;s stimulus window.
+                Statistical significance: P&lt;0.05 at &tau;&nbsp;=&nbsp;5,&nbsp;50; P=0.07 at &tau;&nbsp;=&nbsp;25 (Fisher z post-hoc paired t-tests).
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== PER-COMPONENT ALIGNMENT ========== -->
+    <section>
+        <center>
+            <h1>Per-Component Alignment with Human ECoG</h1>
+            <div style="max-width:900px; width:100%;">
+                <!-- TODO: Replace with Figure 4 from the paper:
+                     A) Grid of 15 time-course panels (one per ECoG component C0–C14), each showing
+                        correlation over time (0–3s) for baseline (black) and tau=1,5,25,50,100 (red shades).
+                        Labeled interpretable components: C0=Speech, C9=Music, C10=Songs, C14=Speech.
+                     B) Bar charts of mean correlation (collapsed across time) per matched component,
+                        showing baseline (black/tan) vs. all tau variants (red shades). -->
+                <div class="fig-placeholder" style="min-height:420px;">
+                    <div class="fig-icon">📈🎶</div>
+                    <div class="fig-label">Figure 4 — Per-Component Alignment (All 15 ECoG Components)</div>
+                    <div class="fig-desc">
+                        <strong>Replace with paper Figure 4.</strong><br>
+                        A) 15-panel grid of correlation time courses: one panel per ECoG component (C0–C14).
+                        Interpretable components labeled: Speech (C0, C14), Music (C9), Song (C10).
+                        Red lines = topographic models (τ=1,5,25,50,100); black = baseline.<br>
+                        B) Bar charts of mean correlation per component, collapsed across time.
+                        Across individual components, topographic models are at par with or outperform the baseline.
+                        τ = 5 performs best overall (sweet spot).
+                    </div>
+                </div>
+            </div>
+            <p class="fig-caption">
+                <strong>Fig. 4. Topographic ANNs better match ECoG representations across individual components.</strong>
+                Across all 15 matched components, topographic models typically equal or outperform the baseline.
+                A modest topographic strength (&tau;&nbsp;=&nbsp;5) most consistently improves brain alignment
+                without over-constraining the representation.
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== INTERPRETABLE COMPONENT TUNING ========== -->
+    <section>
+        <center>
+            <h1>Topographic Models Recover Interpretable Tuning Profiles</h1>
+            <div style="max-width:900px; width:100%;">
+                <!-- TODO: Replace with Figure 5 from the paper:
+                     3-column layout per row (4 rows for C1/Speech, C10/Music, C11/Song, C15/Speech):
+                     Left column = baseline ANN category response profiles (bar chart across 12 sound categories)
+                     Center column = human ECoG component response profiles
+                     Right column = TopoAudio (tau=5) response profiles + spatial weight map on 2D grid
+                     Categories on x-axis: Music, Song, EngSpeech, ForSpeech, HumVoc, AniVoc,
+                                           HumNonVoc, AniNonVoc, Nature, Mechanical, EnvSound, SfX -->
+                <div class="fig-placeholder" style="min-height:420px;">
+                    <div class="fig-icon">🗣️🎼</div>
+                    <div class="fig-label">Figure 5 — Category Tuning Profiles: Speech, Music, Song</div>
+                    <div class="fig-desc">
+                        <strong>Replace with paper Figure 5.</strong><br>
+                        3-column grid for 4 interpretable components (C1=Speech, C10=Music, C11=Song, C15=Speech):<br>
+                        <em>Left:</em> Baseline ANN category response profile.<br>
+                        <em>Center:</em> Human ECoG component profile (ground truth).<br>
+                        <em>Right:</em> TopoAudio (τ=5) profile + 2D spatial weight map showing spatially contiguous
+                        clustering in the topographic model vs. diffuse weights in the baseline.<br>
+                        TopoAudio more faithfully captures speech selectivity (C1, C15) and music selectivity (C10).
+                        Song component (C11) is less cleanly recovered by both models.
+                    </div>
+                </div>
+            </div>
+            <p class="fig-caption">
+                <strong>Fig. 5. Topographic models better recover interpretable ECoG component tuning.</strong>
+                Category response profiles for speech (C1, C15), music (C10), and song (C11) are shown for human ECoG (center),
+                the baseline ANN (left), and TopoAudio &tau;&nbsp;=&nbsp;5 (right). The topographic model reproduces
+                speech and music selectivity more cleanly. Corresponding weight maps show spatially contiguous unit
+                organization in the topographic model vs. diffuse organization in the baseline.
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== SUMMARY TABLE ========== -->
+    <section>
+        <center>
+            <h1>Summary: Baseline vs. TopoAudio</h1>
+            <table class="summary-table" style="max-width:640px;">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Baseline</th>
+                        <th>TopoAudio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Engineering tests (accuracy)</td>
+                        <td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                    <tr><td>Brain prediction (fMRI)</td>
+                        <td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+                    <tr><td>Spatial smoothness</td>
+                        <td class="check-no">✗</td><td class="check-yes">✓</td></tr>
+                    <tr><td>ICA components (fewer = better)</td>
+                        <td>More (~26)</td><td>Fewer (~20)</td></tr>
+                    <tr><td>ECoG component alignment</td>
+                        <td>Worse (~0.32)</td><td>Better (~0.46)</td></tr>
+                </tbody>
+            </table>
+            <p class="fig-caption" style="text-align:center;max-width:640px;">
+                Both models achieve comparable task performance and fMRI predictivity, but topographic models
+                learn smoother representations, fewer ICA components, and stronger alignment with brain-derived
+                components, indicating more brain-like internal structure.
+            </p>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== ACKNOWLEDGEMENTS ========== -->
+    <section>
+        <center>
+            <h1>Acknowledgements</h1>
+            <table align="center" width="900px"><tbody><tr><td>
+                This work was supported in part by the NIH Pathway to Independence Award from the National Eye
+                Institute (R00EY032603), a Georgia Tech startup grant awarded to N.A.R.M., and an NSERC
+                Postgraduate Scholarship &ndash; Doctoral. We thank everyone at
+                <a href="https://www.murtylab.com" target="_blank">Murty Lab</a> for their feedback and support.
+            </td></tr></tbody></table>
+        </center>
+    </section>
+
+    <br><hr>
+
+    <!-- ========== BIBTEX ========== -->
+    <section>
+        <center><h1 id="bibtex" name="bibtex">BibTeX</h1></center>
+        <div class="bibtex-block">@inproceedings{
+    anonymous2026topographic,
+    title={Topographic constraints shape brain-like component structure in auditory models},
+    author={Anonymous},
+    booktitle={9th Annual Conference on Cognitive Computational Neuroscience},
+    year={2026},
+    url={https://openreview.net/forum?id=sELPprz4PR}
+}</div>
+    </section>
+
+    <br><hr>
+    <br>
+</body>
+</html>
+
