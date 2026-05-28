@@ -255,20 +255,7 @@
         <center>
             <h1>Overview: TopoAudio</h1>
             <div style="max-width:900px; width:100%;">
-                <!-- TODO: Replace with Figure 1 from the paper (teaser figure showing pipeline:
-                     cochleagram → Audio Encoder → baseline vs TopoAudio internal representations
-                     vs. Auditory Cortex component structure comparison) -->
-                <div class="fig-placeholder" style="min-height:380px;">
-                    <div class="fig-icon">🎵🧠</div>
-                    <div class="fig-label">Figure 1 — TopoAudio Pipeline Overview</div>
-                    <div class="fig-desc">
-                        <strong>Replace with paper Figure 1.</strong><br>
-                        Shows: raw sound waveform → cochleagram → Audio Encoder.
-                        Baseline model (task loss only) vs. TopoAudio (task loss + topographic loss).
-                        TopoAudio produces smoothly varying internal representations on a 2D cortical sheet,
-                        compared against topographically organized human Auditory Cortex.
-                    </div>
-                </div>
+                <embed src="webpage_assets/figure1_test.pdf" type="application/pdf" width="100%" style="min-height:380px; border:none;">
             </div>
             <p class="fig-caption">
                 <strong>Fig. 1. TopoAudio: Topographic auditory models.</strong> Raw sound waveforms are transformed into cochleagrams and
@@ -371,24 +358,7 @@
         <center>
             <h1>Topographic Models Maintain Brain Predictivity</h1>
             <div style="max-width:900px; width:100%;">
-                <!-- TODO: Replace with Figure 2 from the paper:
-                     A) Brain maps (cortical surface, fsaverage) showing peak voxel-wise predictions
-                        for baseline CochDNN vs. TopoNet-CochDNN across model hierarchy layers
-                     B) Line plot: ANN prediction accuracy (adjusted R²) vs. model depth for both datasets
-                        (NH2015 and B2021), showing baseline and all tau variants overlapping
-                     C) Bar plot: peak encoding performance across all models -->
-                <div class="fig-placeholder" style="min-height:350px;">
-                    <div class="fig-icon">🧠📊</div>
-                    <div class="fig-label">Figure 2 — Brain Predictivity (fMRI)</div>
-                    <div class="fig-desc">
-                        <strong>Replace with paper Figure 2.</strong><br>
-                        A) Cortical surface maps (left/right hemisphere) showing adjusted R² for baseline and
-                        TopoAudio models across model hierarchy layers (NH2015 and B2021 datasets).<br>
-                        B) Line plots of prediction accuracy vs. layer depth — note baseline and TopoAudio curves
-                        are virtually superimposed, peaking at Layer 3.<br>
-                        C) Bar plot of peak encoding performance per model variant (random, baseline, τ=5,25,50,100).
-                    </div>
-                </div>
+                <embed src="webpage_assets/Figure3_JF_rebuttal.pdf" type="application/pdf" width="100%" style="min-height:350px; border:none;">
             </div>
             <p class="fig-caption">
                 <strong>Fig. 2. Topographic auditory models maintain overall voxel-wise brain predictivity.</strong>
@@ -406,26 +376,7 @@
         <center>
             <h1>Topographic Constraints Produce More Compact &amp; Brain-Aligned Component Structure</h1>
             <div style="max-width:900px; width:100%;">
-                <!-- TODO: Replace with Figure 3 from the paper:
-                     A) Schematic: human ECoG + model activations → ICA decomposition into component
-                        weights + responses → correlation-based greedy matching
-                     B) Cumulative explained variance vs. number of ICA components for human ECoG,
-                        baseline, and all tau variants. Vertical dashed lines at 80% threshold show
-                        topographic models need fewer components (red dashed) than baseline (black dashed)
-                     C) Correlation time courses (0–3 s) between matched model and ECoG components;
-                        bar chart on right showing mean similarity: baseline ~0.32, TopoAudio ~0.46 -->
-                <div class="fig-placeholder" style="min-height:400px;">
-                    <div class="fig-icon">📉🔗</div>
-                    <div class="fig-label">Figure 3 — Component Analysis & ECoG Alignment</div>
-                    <div class="fig-desc">
-                        <strong>Replace with paper Figure 3.</strong><br>
-                        A) Schematic of the ICA decomposition + greedy matching pipeline.<br>
-                        B) Cumulative explained variance curves: TopoAudio reaches 80% with fewer components
-                        than baseline, approaching human ECoG dimensionality.<br>
-                        C) Correlation time courses between matched model and ECoG components (0–3 s);
-                        summary bar chart showing mean similarity ~0.32 (baseline) vs. ~0.46 (best TopoAudio).
-                    </div>
-                </div>
+                <embed src="webpage_assets/figure3.pdf" type="application/pdf" width="100%" style="min-height:400px; border:none;">
             </div>
             <p class="fig-caption">
                 <strong>Fig. 3.</strong>
@@ -445,25 +396,7 @@
         <center>
             <h1>Per-Component Alignment with Human ECoG</h1>
             <div style="max-width:900px; width:100%;">
-                <!-- TODO: Replace with Figure 4 from the paper:
-                     A) Grid of 15 time-course panels (one per ECoG component C0–C14), each showing
-                        correlation over time (0–3s) for baseline (black) and tau=1,5,25,50,100 (red shades).
-                        Labeled interpretable components: C0=Speech, C9=Music, C10=Songs, C14=Speech.
-                     B) Bar charts of mean correlation (collapsed across time) per matched component,
-                        showing baseline (black/tan) vs. all tau variants (red shades). -->
-                <div class="fig-placeholder" style="min-height:420px;">
-                    <div class="fig-icon">📈🎶</div>
-                    <div class="fig-label">Figure 4 — Per-Component Alignment (All 15 ECoG Components)</div>
-                    <div class="fig-desc">
-                        <strong>Replace with paper Figure 4.</strong><br>
-                        A) 15-panel grid of correlation time courses: one panel per ECoG component (C0–C14).
-                        Interpretable components labeled: Speech (C0, C14), Music (C9), Song (C10).
-                        Red lines = topographic models (τ=1,5,25,50,100); black = baseline.<br>
-                        B) Bar charts of mean correlation per component, collapsed across time.
-                        Across individual components, topographic models are at par with or outperform the baseline.
-                        τ = 5 performs best overall (sweet spot).
-                    </div>
-                </div>
+                <embed src="webpage_assets/Figure4.pdf" type="application/pdf" width="100%" style="min-height:420px; border:none;">
             </div>
             <p class="fig-caption">
                 <strong>Fig. 4. Topographic ANNs better match ECoG representations across individual components.</strong>
@@ -481,27 +414,7 @@
         <center>
             <h1>Topographic Models Recover Interpretable Tuning Profiles</h1>
             <div style="max-width:900px; width:100%;">
-                <!-- TODO: Replace with Figure 5 from the paper:
-                     3-column layout per row (4 rows for C1/Speech, C10/Music, C11/Song, C15/Speech):
-                     Left column = baseline ANN category response profiles (bar chart across 12 sound categories)
-                     Center column = human ECoG component response profiles
-                     Right column = TopoAudio (tau=5) response profiles + spatial weight map on 2D grid
-                     Categories on x-axis: Music, Song, EngSpeech, ForSpeech, HumVoc, AniVoc,
-                                           HumNonVoc, AniNonVoc, Nature, Mechanical, EnvSound, SfX -->
-                <div class="fig-placeholder" style="min-height:420px;">
-                    <div class="fig-icon">🗣️🎼</div>
-                    <div class="fig-label">Figure 5 — Category Tuning Profiles: Speech, Music, Song</div>
-                    <div class="fig-desc">
-                        <strong>Replace with paper Figure 5.</strong><br>
-                        3-column grid for 4 interpretable components (C1=Speech, C10=Music, C11=Song, C15=Speech):<br>
-                        <em>Left:</em> Baseline ANN category response profile.<br>
-                        <em>Center:</em> Human ECoG component profile (ground truth).<br>
-                        <em>Right:</em> TopoAudio (τ=5) profile + 2D spatial weight map showing spatially contiguous
-                        clustering in the topographic model vs. diffuse weights in the baseline.<br>
-                        TopoAudio more faithfully captures speech selectivity (C1, C15) and music selectivity (C10).
-                        Song component (C11) is less cleanly recovered by both models.
-                    </div>
-                </div>
+                <embed src="webpage_assets/Figure5.pdf" type="application/pdf" width="100%" style="min-height:420px; border:none;">
             </div>
             <p class="fig-caption">
                 <strong>Fig. 5. Topographic models better recover interpretable ECoG component tuning.</strong>
