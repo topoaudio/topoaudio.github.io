@@ -273,40 +273,46 @@
         <center><h1>Key Findings</h1></center>
         <table align="center" width="900px"><tbody><tr><td>
             <div class="finding-box">
-                <strong>Finding 1: Task performance is preserved.</strong>
+                <strong>Finding 1: TopoAudio preserves task performance.</strong>
                 TopoAudio achieves classification accuracy on ESC-50, NSynth, and Speech Commands that is
-                comparable to non-topographic baselines, even as topographic smoothness increases substantially.
+                comparable to non-topographic baselines (&lt;1% drop), even as topographic smoothness increases substantially.
             </div>
             <div class="finding-box">
-                <strong>Finding 2: Brain predictivity is maintained.</strong>
-                Both baseline and TopoAudio models predict human auditory fMRI responses (NH2015, B2021) with
-                equally high accuracy across all cortical layers and regions of interest.
+                <strong>Finding 2: TopoAudio maintains brain predictivity.</strong>
+                TopoAudio predicts human auditory fMRI responses (NH2015, B2021) with equally high accuracy
+                across all cortical layers and regions of interest, matching non-topographic baselines.
             </div>
             <div class="finding-box">
-                <strong>Finding 3: More compact component structure.</strong>
-                Topographic constraints reduce the number of representational components needed to explain 80%
+                <strong>Finding 3: TopoAudio requires fewer ICA components.</strong>
+                Topographic constraints reduce the number of ICA components needed to explain 80%
                 of response variance (e.g., 26 components for baseline vs. 20 for &tau;&nbsp;=&nbsp;25).
             </div>
             <div class="finding-box">
-                <strong>Finding 4: Better alignment with human ECoG.</strong>
-                Components extracted from TopoAudio show significantly stronger correlation with the 15 components
-                derived from human ECoG recordings, particularly for speech, music, and song.
+                <strong>Finding 4: TopoAudio shows improved alignment with human ECoG.</strong>
+                TopoAudio recovers selectivity for music, speech, and song, with components showing
+                significantly improved correlation with the 15 components derived from human ECoG recordings.
+            </div>
+            <div class="finding-box">
+                <strong>Finding 5: TopoAudio recovers selectivity for music, speech, and song.</strong>
+                Topographic constraints enable the model to develop components with clear category selectivity
+                matching those seen in human auditory cortex &mdash; including dedicated components for speech,
+                music, and song that are absent or diffuse in non-topographic baselines.
             </div>
         </td></tr></tbody></table>
 
         <!-- Quick-glance stat cards -->
         <div style="display:flex;justify-content:center;flex-wrap:wrap;max-width:900px;margin:20px auto 0 auto;">
             <div class="stat-card">
-                <span class="highlight-stat">~0%</span>
+                <span class="highlight-stat">&lt;1%</span>
                 drop in task accuracy<br>with topography
             </div>
             <div class="stat-card">
                 <span class="highlight-stat">26 → 20</span>
-                ICA components<br>needed at 80% variance
+                Fewer ICA components<br>needed at 80% variance
             </div>
             <div class="stat-card">
                 <span class="highlight-stat">0.32 → 0.46</span>
-                ECoG alignment (R)<br>baseline vs. TopoAudio
+                Improved ECoG alignment (R)<br>baseline vs. TopoAudio
             </div>
             <div class="stat-card">
                 <span class="highlight-stat">&tau; = 5</span>
@@ -356,7 +362,7 @@
     <!-- ========== BRAIN PREDICTIVITY ========== -->
     <section>
         <center>
-            <h1>Topographic Models Maintain Brain Predictivity</h1>
+            <h1>TopoAudio Maintains Brain Predictivity</h1>
             <div style="max-width:900px; width:100%;">
                 <img src="webpage_assets/Figure3_JF_rebuttal.png" style="width:100%;" alt="Figure 2 — Brain Predictivity (fMRI)">
             </div>
@@ -374,7 +380,7 @@
     <!-- ========== COMPONENT STRUCTURE ========== -->
     <section>
         <center>
-            <h1>Topographic Constraints Produce More Compact &amp; Brain-Aligned Component Structure</h1>
+            <h1>TopoAudio Produces More Compact &amp; Brain-Aligned Component Structure</h1>
             <div style="max-width:900px; width:100%;">
                 <img src="webpage_assets/figure3.png" style="width:100%;" alt="Figure 3 — Component Analysis & ECoG Alignment">
             </div>
@@ -394,7 +400,7 @@
     <!-- ========== PER-COMPONENT ALIGNMENT ========== -->
     <section>
         <center>
-            <h1>Per-Component Alignment with Human ECoG</h1>
+            <h1>TopoAudio Shows Improved Per-Component Alignment with Human ECoG</h1>
             <div style="max-width:900px; width:100%;">
                 <img src="webpage_assets/Figure4.png" style="width:100%;" alt="Figure 4 — Per-Component Alignment">
             </div>
@@ -412,15 +418,15 @@
     <!-- ========== INTERPRETABLE COMPONENT TUNING ========== -->
     <section>
         <center>
-            <h1>Topographic Models Recover Interpretable Tuning Profiles</h1>
+            <h1>TopoAudio Recovers Selectivity for Music, Speech and Song</h1>
             <div style="max-width:900px; width:100%;">
                 <img src="webpage_assets/Figure5.png" style="width:100%;" alt="Figure 5 — Category Tuning Profiles">
             </div>
             <p class="fig-caption">
-                <strong>Fig. 5. Topographic models better recover interpretable ECoG component tuning.</strong>
+                <strong>Fig. 5. TopoAudio recovers selectivity for music, speech and song.</strong>
                 Category response profiles for speech (C1, C15), music (C10), and song (C11) are shown for human ECoG (center),
-                the baseline ANN (left), and TopoAudio &tau;&nbsp;=&nbsp;5 (right). The topographic model reproduces
-                speech and music selectivity more cleanly. Corresponding weight maps show spatially contiguous unit
+                the baseline ANN (left), and TopoAudio &tau;&nbsp;=&nbsp;5 (right). TopoAudio recovers
+                speech, music, and song selectivity more cleanly than the baseline. Corresponding weight maps show spatially contiguous unit
                 organization in the topographic model vs. diffuse organization in the baseline.
             </p>
         </center>
@@ -450,7 +456,7 @@
                     <tr><td>ICA components (fewer = better)</td>
                         <td>More (~26)</td><td>Fewer (~20)</td></tr>
                     <tr><td>ECoG component alignment</td>
-                        <td>Worse (~0.32)</td><td>Better (~0.46)</td></tr>
+                        <td>Worse (~0.32)</td><td>Improved (~0.46)</td></tr>
                 </tbody>
             </table>
             <p class="fig-caption" style="text-align:center;max-width:640px;">
@@ -468,9 +474,9 @@
         <center>
             <h1>Acknowledgements</h1>
             <table align="center" width="900px"><tbody><tr><td>
-                This work was supported in part by the NIH Pathway to Independence Award from the National Eye
-                Institute (R00EY032603), a Georgia Tech startup grant awarded to N.A.R.M., and an NSERC
-                Postgraduate Scholarship &ndash; Doctoral. We thank everyone at
+                This work was supported in part by the NIH Pathway to Independence Award (R00EY032603),
+                NSF Nexus (Allocation number: SOC250049), a startup grant from Georgia Tech to N.A.R.M.,
+                and an NSERC Postgraduate Scholarship &ndash; Doctoral. We thank everyone at
                 <a href="https://www.murtylab.com" target="_blank">Murty Lab</a> for their feedback and support.
             </td></tr></tbody></table>
         </center>
